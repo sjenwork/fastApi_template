@@ -2,3 +2,4 @@ __pycache__/
 .conda/
 *log
 *.pyc
+.DS_Store
