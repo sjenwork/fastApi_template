@@ -6,6 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from dotenv import load_dotenv
 from urllib.parse import quote
 import importlib
+from sqlalchemy.sql import text
 
 Base = declarative_base()
 

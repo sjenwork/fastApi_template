@@ -18,7 +18,7 @@ handlers:
     stream: ext://sys.stdout
 
   sql_server:
-    class: app.logging_config.SQLServerHandler
+    class: app.utils.logger.logging_config.SQLServerHandler
     level: INFO
     formatter: message
 

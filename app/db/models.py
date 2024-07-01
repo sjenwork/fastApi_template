@@ -23,4 +23,4 @@ class WebOpteLog(Base):
     OperateClass = Column(String(1), nullable=False)
     LogMessage = Column(String(4000), nullable=False)
     FunctionName = Column(String(255), default="")
-    Hash = Column(String(255), nullable=True)
+    Hash = Column(String(255), nullable=False)

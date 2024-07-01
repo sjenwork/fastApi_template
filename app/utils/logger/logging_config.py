@@ -1,10 +1,9 @@
 import logging
 import logging.config
 import yaml
-from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData
+from sqlalchemy import MetaData
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 from app.db.models import Base, Log, WebOpteLog
 import json
 import os
@@ -36,6 +35,7 @@ class SQLServerHandler(logging.Handler):
             "OperateClass": message["OperateClass"],
             "LogMessage": message["LogMessage"],
             "FunctionName": message["FunctionName"],
+            "Hash": message["Hash"],
         }
         log_entry = WebOpteLog(**log_dict)
         session.add(log_entry)
