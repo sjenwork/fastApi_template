@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.endpoints import api1
+from app.api.endpoints import upload
 from contextlib import asynccontextmanager
 from app.utils.db_utils import SQLServerConnection
 from app.logging_config import setup_logging
@@ -25,7 +25,7 @@ def test_sqlserver_connection():
 
 
 app = FastAPI(title="My FastAPI Project")
-app.include_router(api1.router, prefix="/api")
+app.include_router(upload.router, prefix="/api")
 
 engine = test_sqlserver_connection()
 logging = setup_logging(engine=engine)
