@@ -24,7 +24,7 @@ def get_api_key(api_key: str = Depends(api_key_header)):
 
 @router.post("/upload/", dependencies=[Depends(get_api_key)])
 @loggerWrapper
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(AccId: str, file: UploadFile = File(...)):
     """
     上傳檔案的路由處理程序。
 
@@ -43,8 +43,7 @@ async def upload_file(file: UploadFile = File(...)):
         return JSONResponse(content={"message": f"Error: {e}"}, status_code=400)
 
 
-# @router.get("/test/", dependencies=[Depends(get_api_key)])
 @router.get("/test/")
 @loggerWrapper
-async def test():
+async def test(AccId: str):
     return {"message": "Hello, World in Upload!"}
