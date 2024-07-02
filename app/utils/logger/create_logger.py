@@ -1,4 +1,4 @@
-from app.utils.db_utils import SQLServerConnection
+from app.utils.db_utils import sql_conn
 from app.utils.logger.logging_config import setup_logging
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.sql import text
@@ -12,19 +12,6 @@ import json
 function_name_mapping = {
     "hello_world": "哈囉世界",
 }
-
-
-def test_sqlserver_connection():
-    try:
-        sqlserver_connection = SQLServerConnection()
-        engine = sqlserver_connection.engine
-        with engine.begin() as connection:
-            connection.execute(text("SELECT top 1 * from config"))
-
-            print("Database connection test successful.")
-        return engine
-    except SQLAlchemyError as e:
-        raise Exception(f"資料庫連線失敗: {e}")
 
 
 def loggerWrapper(func):
@@ -47,6 +34,7 @@ def loggerWrapper(func):
         log["LogMessage"] = f"""執行「{log["FunctionName"]} 」。"""
         log["AccId"] = kwargs.get("AccId", "-")
         log["OperateClass"] = kwargs.get("OperateClass", "-")
+        log["Hash"] = generate_sha512_hash(log["LogMessage"])
         logger.info(json.dumps(log, ensure_ascii=False))
         result = func(*args, **kwargs)
         return result
@@ -57,6 +45,9 @@ def loggerWrapper(func):
         return sync_wrapper
 
 
-engine = test_sqlserver_connection()
+# engine = test_sqlserver_connection()
+engine = sql_conn.test_connection()
 logging = setup_logging(engine=engine)
 logger = logging.getLogger("prod")
+
+logger_local = logging.getLogger("debug")
