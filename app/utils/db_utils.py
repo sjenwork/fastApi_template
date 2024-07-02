@@ -143,7 +143,7 @@ class SQLServerConnection:
         self.Base = declarative_base()
 
         # 列印載入的 .env 檔案路徑和環境變數
-        self.print_env_variables()
+        # self.print_env_variables()
 
         # 建立 SQLAlchemy 引擎和會話
         self.create_engine_and_session()
@@ -219,3 +219,17 @@ class SQLServerConnection:
             print(f"Error deleting data: {e}")
         finally:
             session.close()
+
+    def test_connection(self):
+        try:
+            engine = self.engine
+            with engine.begin() as connection:
+                connection.execute(text("SELECT 1"))
+
+                print("Database connection test successful.")
+            return engine
+        except SQLAlchemyError as e:
+            raise Exception(f"資料庫連線失敗: {e}")
+
+
+sql_conn = SQLServerConnection()
