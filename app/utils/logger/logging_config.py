@@ -80,4 +80,5 @@ def setup_logging(default_path=default_logging_config, default_level=logging.INF
             logging.config.dictConfig(config)
     else:
         logging.basicConfig(level=default_level)
+        print("No engine provided. Logging by default.")
     return logging
